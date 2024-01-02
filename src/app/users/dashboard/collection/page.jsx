@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "@/app/components/Dashboard/Header";
 import prisma from "@/app/libs/prisma";
 import { authUserSession } from "@/app/libs/auth-libs";
+import ButtonHapus from "@/app/components/Comment/ButtonHapus";
 
 const Page = async () => {
   const user = await authUserSession();
@@ -15,12 +16,17 @@ const Page = async () => {
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {collection.map((collect, index) => {
           return (
-            <Link key={index} href={`/anime/${collect.mal_id}`} className="relative">
-              <Image src={collect.anime_image} alt={collect.mal_id} width={350} height={350} className="w-full" />
-              <div className="absolute flex items-center justify-center bottom-0 w-full bg-color-accent h-16">
-                <h5 className="text-xl text-center">{collect.anime_title}</h5>
+            <div key={index} className="relative">
+              <div className="text-center">
+                <ButtonHapus id={collect.id} endpoint="delete_collection"/>
               </div>
-            </Link>
+              <Link href={`/anime/${collect.mal_id}`}>
+                <Image src={collect.anime_image} alt={collect.mal_id} width={350} height={350} className="w-full" />
+                <div className="absolute flex items-center justify-center bottom-0 w-full bg-color-accent h-16">
+                  <h5 className="text-xl text-center">{collect.anime_title}</h5>
+                </div>
+              </Link>
+            </div>
           );
         })}
       </div>

@@ -8,7 +8,6 @@ const CollectionButton = ({ mal_id, user_email, anime_image, anime_title }) => {
     event.preventDefault();
 
     const data = { mal_id, user_email, anime_image, anime_title };
-    console.log("ini data dari collection :" + mal_id);
 
     const response = await fetch("/api/v1/collection", {
       method: "POST",
